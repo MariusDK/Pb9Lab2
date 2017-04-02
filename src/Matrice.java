@@ -33,109 +33,16 @@ public class Matrice {
         this.val = val;
     }
 
-    public Matrice retCdreapta(Matrice tata)
+
+    public void printMatrice(Matrice tata)
     {
-        int val;
-        for (int i=0;i<tata.getVal().length;i++)
-        {
-            for (int j=0;j<tata.getVal().length;i++)
-            {
-                if (tata.getVal()[i][j]==0)
-                {
-                    if (j==0)
-                    {
-                        return tata;
-                    }
-                    else
-                    {
-                        val=tata.getVal()[i][j+1];
-                        tata.getVal()[i][j+1]=0;
-                        tata.getVal()[i][j]=val;
-                        return tata;
-                    }
-                }
-            }
-        }
-        return tata;
+     for (int i=0;i<tata.getVal().length;i++)
+     {
+         for (int j=0;j<tata.getVal().length;j++)
+         {
+             System.out.print(val[i][j]+" ");
+         }
+         System.out.println();
+     }
     }
-    public Matrice retCStanga(Matrice tata)
-    {
-        int val;
-        for (int i=0;i<tata.getVal().length;i++)
-        {
-            for (int j=0;j<tata.getVal().length;i++)
-            {
-                if (tata.getVal()[i][j]==0)
-                {
-                    if (j==0)
-                    {
-                        return tata;
-                    }
-                    else
-                    {
-                        val=tata.getVal()[i][j-1];
-                        tata.getVal()[i][j-1]=0;
-                        tata.getVal()[i][j]=val;
-                        return tata;
-                    }
-                }
-            }
-        }
-        return tata;
-    }
-    public Matrice retCSus(Matrice tata)
-    {
-        int val;
-        for (int i=0;i<tata.getVal().length;i++)
-        {
-            for (int j=0;j<tata.getVal().length;i++)
-            {
-                if (tata.getVal()[i][j]==0)
-                {
-                    if (i==0)
-                    {
-                        return tata;
-                    }
-                    else
-                    {
-                        val=tata.getVal()[i-1][j];
-                        tata.getVal()[i-1][j]=0;
-                        tata.getVal()[i][j]=val;
-                        return tata;
-                    }
-                }
-            }
-        }
-        return tata;
-    }
-    public Matrice retCJos(Matrice tata)
-    {
-        int val;
-        for (int i=0;i<tata.getVal().length;i++)
-        {
-            for (int j=0;j<tata.getVal().length;i++)
-            {
-                if (tata.getVal()[i][j]==0)
-                {
-                    if (i==tata.getVal().length-1)
-                    {
-                        return tata;
-                    }
-                    else
-                    {
-                        val=tata.getVal()[i-1][j];
-                        tata.getVal()[i-1][j]=0;
-                        tata.getVal()[i][j]=val;
-                        return tata;
-                    }
-                }
-            }
-        }
-        return tata;
-    }
-
-
-
-
-
 }

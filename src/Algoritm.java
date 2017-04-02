@@ -1,3 +1,6 @@
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.LinkedList;
 import java.util.Queue;
 
 /**
@@ -5,47 +8,175 @@ import java.util.Queue;
  */
 public class Algoritm
 {
-    public void generarePotentialeSoluti(Matrice m)
+    public void generarePotentialeSoluti(Matrice m,Arbore a)
     {
-        Queue<Matrice> coada = null;
+        Queue<Matrice> coada = new LinkedList<Matrice>();
+
         coada.add(m);
-        Arbore a=new Arbore();
+        //Arbore a=new Arbore();
         Nod x=new Nod();
         x.setVal(m);
         a.setRadacina(x);
         while (!coada.isEmpty())
         {
             Matrice current=coada.remove();
-            x.setVal(current);
-            if (a.valid(current.retCdreapta(current),x))
+            Nod y=new Nod();
+            y.setVal(current);
+            //x.setVal(current);
+            //System.out.println(current.retCdreapta(current));
+            Matrice drp=retCdreapta(current);
+            if (valid(drp,y))
             {
-                coada.add(current.retCdreapta(current));
+                coada.add(retCdreapta(current));
                 Nod c=new Nod();
-                c.setVal(current.retCdreapta(current));
+                c.setVal(retCdreapta(current));
                 a.addArbore(x,c);
             }
-            if (a.valid(current.retCStanga(current),x))
+            if (valid(retCStanga(current),x))
             {
-                coada.add(current.retCStanga(current));
+                coada.add(retCStanga(current));
                 Nod c=new Nod();
-                c.setVal(current.retCStanga(current));
+                c.setVal(retCStanga(current));
                 a.addArbore(x,c);
             }
-            if (a.valid(current.retCJos(current),x))
+            if (valid(retCJos(current),x))
             {
-                coada.add(current.retCJos(current));
+                coada.add(retCJos(current));
                 Nod c=new Nod();
-                c.setVal(current.retCJos(current));
+                c.setVal(retCJos(current));
                 a.addArbore(x,c);
             }
-            if (a.valid(current.retCSus(current),x))
+            if (valid(retCSus(current),x))
             {
-                coada.add(current.retCSus(current));
+                coada.add(retCSus(current));
                 Nod c=new Nod();
-                c.setVal(current.retCSus(current));
+                c.setVal(retCSus(current));
                 a.addArbore(x,c);
             }
         }
+    }
+    public Matrice retCdreapta(Matrice tata)
+    {
+        Matrice fiu=tata;
+        int val;
+        for (int i=0;i<fiu.getVal().length;i++)
+        {
+            for (int j=0;j<fiu.getVal().length;j++)
+            {
+                if (fiu.getVal()[i][j]==0)
+                {
+                    if (i==fiu.getVal().length-1)
+                    {
+                        return fiu;
+                    }
+                    else
+                    {
+                        val=fiu.getVal()[i+1][j];
+                        fiu.getVal()[i+1][j]=0;
+                        fiu.getVal()[i][j]=val;
+                        return fiu;
+                    }
+                }
+            }
+        }
+        return fiu;
+    }
+    public Matrice retCStanga(Matrice tata)
+    {
+        int val;
+        for (int i=0;i<tata.getVal().length;i++)
+        {
+            for (int j=0;j<tata.getVal().length;j++)
+            {
+                System.out.println(tata.getVal()[i][j]);
+                if (tata.getVal()[i][j]==0)
+                {
+                    if (i==0)
+                    {
+                        return tata;
+                    }
+                    else
+                    {
+                        val=tata.getVal()[i-1][j];
+                        tata.getVal()[i-1][j]=0;
+                        tata.getVal()[i][j]=val;
+                        return tata;
+                    }
+                }
+            }
+        }
+        return tata;
+    }
+    public Matrice retCSus(Matrice tata)
+    {
+        int val;
+        for (int i=0;i<tata.getVal().length;i++)
+        {
+            for (int j=0;j<tata.getVal().length;j++)
+            {
+                if (tata.getVal()[i][j]==0)
+                {
+                    if (j==0)
+                    {
+                        return tata;
+                    }
+                    else
+                    {
+                        val=tata.getVal()[i][j-1];
+                        tata.getVal()[i][j-1]=0;
+                        tata.getVal()[i][j]=val;
+                        return tata;
+                    }
+                }
+            }
+        }
+        return tata;
+    }
+    public Matrice retCJos(Matrice tata)
+    {
+        int val;
+        for (int i=0;i<tata.getVal().length;i++)
+        {
+            for (int j=0;j<tata.getVal().length;j++)
+            {
+                if (tata.getVal()[i][j]==0)
+                {
+                    if (j==tata.getVal().length-1)
+                    {
+                        return tata;
+                    }
+                    else
+                    {
+                        val=tata.getVal()[i][j+1];
+                        tata.getVal()[i][j+1]=0;
+                        tata.getVal()[i][j]=val;
+                        return tata;
+                    }
+                }
+            }
+        }
+        return tata;
+    }
+    public boolean valid(Matrice s,Nod radacina) {
+        Queue<Nod> queue = new LinkedList<Nod>();
+        if (radacina == null) {
+            return true;
+        }
+        queue.clear();
+        queue.add(radacina);
+        while (!queue.isEmpty()) {
+            Nod nod = queue.remove();
+//            System.out.print(node.element + " ");
+            if (nod.getVal() == s) {
+                return false;
+            }
+            if (nod.getCopil() != null) {
+                for (Nod c : nod.getCopil()) {
+                    queue.add(c);
+                }
+            }
+        }
+        return true;
     }
 
 

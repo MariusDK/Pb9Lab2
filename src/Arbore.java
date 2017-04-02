@@ -55,25 +55,25 @@ public class Arbore {
         }
     }
     //validare pe parcurgere tot bnf
-    public boolean valid(Matrice s,Nod radacina) {
+
+
+
+    public void printArbore() {
         Queue<Nod> queue = new LinkedList<Nod>();
         if (radacina == null) {
-            return true;
+            System.out.println("Null");
         }
         queue.clear();
         queue.add(radacina);
         while (!queue.isEmpty()) {
             Nod nod = queue.remove();
-//            System.out.print(node.element + " ");
-            if (nod.getVal() == s) {
-                return false;
-            }
+            nod.getVal().printMatrice(nod.getVal());
+
             if (nod.getCopil() != null) {
                 for (Nod c : nod.getCopil()) {
                     queue.add(c);
                 }
             }
         }
-        return true;
     }
 }
