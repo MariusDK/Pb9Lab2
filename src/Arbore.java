@@ -1,3 +1,4 @@
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.Queue;
 
@@ -35,24 +36,49 @@ public class Arbore {
 //        this.dimensiune = dimensiune;
 //    }
 
-    public void addArbore(Nod Parinte,Nod current)
-    {
-        if (radacina==null)
+//    public void addArbore(Nod Parinte,Nod current)
+//    {
+//        if (radacina==null)
+//        {
+//            radacina=current;
+//        }else{
+//            if(Parinte.getVal()==radacina.getVal())
+//            {
+//                    radacina.copil.add(current);
+//            }
+//        else{
+//                for (int i = 0; i < radacina.getCopil().size(); i++)
+//                {
+//                    radacina=radacina.getCopil().get(i);
+//                    addArbore(Parinte,current);
+//                }
+//            }
+//        }
+//    }
+    public boolean addArbore(Nod Parinte,Nod current) {
+        Algoritm a=new Algoritm();
+        Queue<Nod> queue = new LinkedList<Nod>();
+        if (radacina == null) {
+            return false;
+        }
+        queue.clear();
+        queue.add(radacina);
+        while (!queue.isEmpty())
         {
-            radacina=current;
-        }else{
-            if(Parinte==radacina)
+            Nod nod = queue.remove();
+//            System.out.print(node.element + " ");
+            if (a.MatriciEgale(nod.getVal(),Parinte.getVal()))
             {
-                radacina.copil.add(current);
+                nod.copil.add(current);
+                return false;
             }
-        else{
-                for (int i = 0; i < radacina.copil.size(); i++)
-                {
-                    radacina=radacina.copil.get(i);
-                    addArbore(Parinte,current);
+            if (nod.getCopil() != null) {
+                for (Nod c : nod.getCopil()) {
+                    queue.add(c);
                 }
             }
         }
+        return true;
     }
     //validare pe parcurgere tot bnf
 
@@ -67,7 +93,7 @@ public class Arbore {
         queue.add(radacina);
         while (!queue.isEmpty()) {
             Nod nod = queue.remove();
-            nod.getVal().printMatrice(nod.getVal());
+            nod.getVal().printMatrice();
 
             if (nod.getCopil() != null) {
                 for (Nod c : nod.getCopil()) {
@@ -75,5 +101,6 @@ public class Arbore {
                 }
             }
         }
+
     }
 }
